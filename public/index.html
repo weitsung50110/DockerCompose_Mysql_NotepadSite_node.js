@@ -2,35 +2,21 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Display MySQL Data</title>
+  <title>Insert and Display MySQL Data</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Data from MySQL:</h1>
-    <div id="data"></div>
-    
-    <!-- 按钮 -->
-    <button onclick="getData()">Get Data</button>
-  
-    <script>
-      function getData() {
-        // 发送 GET 请求到服务器执行查询
-        fetch('/messages')
-            .then(response =>{
-                return response.json();
-            })
-            .then(data => {
-                const dataDiv = document.getElementById('data');
-                dataDiv.innerHTML = ''; // 清空先前的数据
-                data.forEach(row_data => {
-                    const rowDiv = document.createElement('div');
-                    rowDiv.innerText = JSON.stringify(row_data);
-                    dataDiv.appendChild(rowDiv);
-                });
-            })
-            .catch(error => {
-                console.error('Error花:', error);
-            });
-      }
-    </script>
+  <h1>Insert and Display MySQL Data</h1>
+
+  <form id="dataForm">
+    <label for="message">Enter Message:</label>
+    <input type="text" id="message" name="message">
+    <button type="submit">Submit</button>
+  </form>
+
+  <h2>Data from MySQL:</h2>
+  <div id="data"></div>
+
+  <script src="scripts.js"></script>
 </body>
 </html>
