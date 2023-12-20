@@ -1,0 +1,30 @@
+version: '3'
+services:
+  my-node-app:
+    container_name: my-node-app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/usr/src/app  # 將本地程式碼目錄掛載到容器內
+    depends_on:
+      - mysql-container
+    environment:
+      - DB_HOST=mysql-container
+      - DB_USER=root # 您的MySQL使用者名稱
+      - DB_PASSWORD=root # 您的MySQL密碼
+      - DB_NAME=qq # 您的資料庫名稱
+
+  mysql-container:
+    container_name: mysql-container
+    image: mysql:8.2-oraclelinux8
+    restart: always
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./mysql-data:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=root # 設置MySQL root密碼
+      - MYSQL_DATABASE=qq # 資料庫名稱

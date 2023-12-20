@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Display MySQL Data</title>
+</head>
+<body>
+    <h1>Data from MySQL:</h1>
+    <div id="data"></div>
+    
+    <!-- 按钮 -->
+    <button onclick="getData()">Get Data</button>
+  
+    <script>
+      function getData() {
+        // 发送 GET 请求到服务器执行查询
+        fetch('/messages')
+            .then(response =>{
+                return response.json();
+            })
+            .then(data => {
+                const dataDiv = document.getElementById('data');
+                dataDiv.innerHTML = ''; // 清空先前的数据
+                data.forEach(row_data => {
+                    const rowDiv = document.createElement('div');
+                    rowDiv.innerText = JSON.stringify(row_data);
+                    dataDiv.appendChild(rowDiv);
+                });
+            })
+            .catch(error => {
+                console.error('Error花:', error);
+            });
+      }
+    </script>
+</body>
+</html>
