@@ -21,6 +21,24 @@
 本專案的project名稱為mysql_DockerCopmpose，因此network名稱為mysql_dockercopmpose_default。<br />
 (在尾端加上default字樣是docker-compose的network名稱預設)
 
+### process.env
+server_wei.js中，
+process.env 是一個 Node.js 的全域對象，其中包含了系統環境變數。<br />
+這些環境變數可以在執行程式時由作業系統或者在 Docker Compose 中設置。<br />
+DB_HOST、DB_PORT、DB_USER、DB_PASSWORD 和 DB_NAME是根據你在 docker-compose.yml 中定義的環境變數名稱。
+
+透過這種方式，程式碼中不直接硬編碼連接詳細資訊，而是使用環境變數，<br />
+這樣的好處是在不同的環境中（開發、測試、部署）時，只需更改 docker-compose.yml 中的環境變數設置<br />
+而不需要修改程式碼，這使得應用程式更具可移植性和安全性。<br />
+
+        // 建立 MySQL 連接
+        const connection = mysql.createConnection({
+          host: process.env.DB_HOST, // 從環境變數中獲取 MySQL 主機名稱
+          user: process.env.DB_USER, // 從環境變數中獲取 MySQL 用戶名
+          password: process.env.DB_PASSWORD, // 從環境變數中獲取 MySQL 密碼
+          database: process.env.DB_NAME // 從環境變數中獲取 MySQL 資料庫名稱
+        });
+
 若不想使用docker-compose來啟動的話，也可以個別來跑，但要注意有要通訊的containers必須要連接近同一個network當中。
 
 ***Create a Docker network***
