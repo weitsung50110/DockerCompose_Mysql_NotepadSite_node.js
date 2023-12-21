@@ -9,12 +9,19 @@ app.use(express.json()); // 解析 JSON 格式的請求資料
 
 // 建立 MySQL 連接
 const connection = mysql.createConnection({
-  host: 'mysql-container',
-  port: '3306',
-  user: 'root',
-  password: 'root',
-  database: 'qq'
+  host: process.env.DB_HOST, // 從環境變數中獲取 MySQL 主機名稱
+  user: process.env.DB_USER, // 從環境變數中獲取 MySQL 用戶名
+  password: process.env.DB_PASSWORD, // 從環境變數中獲取 MySQL 密碼
+  database: process.env.DB_NAME // 從環境變數中獲取 MySQL 資料庫名稱
 });
+// 注意：process.env 是一個 Node.js 的全域對象，其中包含了系統環境變數。
+// 這些環境變數可以在執行程式時由作業系統或者在 Docker Compose 中設置。
+// 在這個程式碼中，DB_HOST、DB_PORT、DB_USER、DB_PASSWORD 和 DB_NAME
+// 是根據你在 docker-compose.yml 中定義的環境變數名稱。
+
+// 透過這種方式，程式碼中不直接硬編碼連接詳細資訊，而是使用環境變數，
+// 這樣的好處是在不同的環境中（開發、測試、部署）時，只需更改 docker-compose.yml 中的環境變數設置
+// 而不需要修改程式碼，這使得應用程式更具可移植性和安全性。
 
 // 連接至 MySQL 數據庫
 connection.connect((err) => {
