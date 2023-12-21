@@ -14,6 +14,3 @@ Thumbs.db
 .temp/
 .tmp/
 
-#Git 會忽略 /mysql-data 目錄下的所有內容，但會保留並追蹤其中的 /qq 目錄及其內容。
-/mysql-data/*
-!/mysql-data/qq/

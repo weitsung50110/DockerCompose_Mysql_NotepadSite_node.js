@@ -4,25 +4,27 @@
 // 等待整個 HTML 文件加載完畢後執行
 document.addEventListener('DOMContentLoaded', function () {
     // 獲取表單元素、訊息輸入框和顯示數據的 div
-    const form = document.getElementById('dataForm');
+    const dataForm = document.getElementById('dataForm');
     const messageInput = document.getElementById('message');
     const dataDiv = document.getElementById('data');
 
     // 當表單提交時觸發事件
-    form.addEventListener('submit', function (e) {
+    dataForm.addEventListener('submit', function (e) {
         e.preventDefault(); // 阻止預設提交行為
 
         // 獲取訊息輸入框的值
         const message = messageInput.value;
 
-        // 使用 Fetch API 發送 POST 請求
-        fetch('/add-message', {
-            method: 'POST', // 設置請求方法為 POST
+        const requestOptions = {
+            method: 'POST',
             headers: {
-                'Content-Type': 'application/json' // 設置請求頭部的 Content-Type 為 JSON
+              'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ message }) // 將訊息轉換為 JSON 字串並作為請求體發送
-        })
+            body: JSON.stringify({message})
+        };
+
+        // 使用 Fetch API 發送 POST 請求
+        fetch('/messages', requestOptions)
         .then(() => {
             messageInput.value = ''; // 清空訊息輸入框的值
             getData(); // 重新獲取數據並刷新顯示
@@ -35,7 +37,9 @@ document.addEventListener('DOMContentLoaded', function () {
     // 獲取數據的函數
     function getData() {
         fetch('/messages')
-            .then(response => { return response.json()}) // 解析 JSON 格式的回應
+            .then(response => { 
+                return response.json() // 解析 JSON 格式的回應
+            }) 
             .then(data => {
                 dataDiv.innerHTML = ''; // 清空顯示數據的 div
 
@@ -64,7 +68,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // 刪除數據的函數
     function deleteData(id) {
-        fetch(`/delete-message/${id}`, {
+        fetch(`/messages/${id}`, {
             method: 'DELETE' // 發送 DELETE 請求刪除特定數據
         })
         .then(response => {
@@ -79,5 +83,41 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
+    const foodForm = document.getElementById('foodForm');
+    const foodName = document.getElementById('foodName');
+    const tastyFood = document.getElementById('tastyFood');
+    
+    // 當表單提交時觸發事件
+    foodForm.addEventListener('submit', function (e) {
+        e.preventDefault(); // 阻止預設提交行為
+
+        // 獲取訊息輸入框的值
+        const foodName_message = foodName.value;
+        const tastyFood_message = tastyFood.value;
+
+        const food_formData = {
+            foodName_j: foodName_message,
+            tastyFood_j: tastyFood_message
+        }
+
+        const requestOptions = {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(food_formData)
+        };
+
+        // 使用 Fetch API 發送 POST 請求
+        fetch('/food', requestOptions)
+        .then(() => {
+            tastyFood.value = ''; // 清空訊息輸入框的值
+            getData(); // 重新獲取數據並刷新顯示
+        })
+        .catch(error => {
+            console.error('Error:', error); // 若發生錯誤則輸出錯誤信息到控制台
+        });
+    });
+    
     getData(); // 初始時獲取並顯示數據
 });

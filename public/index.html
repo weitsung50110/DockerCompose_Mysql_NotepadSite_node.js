@@ -4,19 +4,38 @@
   <meta charset="UTF-8">
   <title>Insert and Display MySQL Data</title>
   <link rel="stylesheet" href="styles.css">
+  <!-- 引入 Vue.js 3 的 CDN -->
+  <script src="https://unpkg.com/vue@3.3.0/dist/vue.global.js"></script>
 </head>
 <body>
-  <h1>Insert and Display MySQL Data</h1>
+  <div id="app">
+    <h1>Insert and Display MySQL Data</h1>
 
-  <form id="dataForm">
-    <label for="message">Enter Message:</label>
-    <input type="text" id="message" name="message">
-    <button type="submit">Submit</button>
-  </form>
+    <!-- 表單用於輸入好吃的食物 -->
+    <form @submit.prevent="submitFood" id="foodForm">
+      <label for="foodName">Name:</label>
+      <input type="text" id="foodName" v-model="foodName">
+      <label for="tastyFood">Tasty Food:</label>
+      <input type="text" id="tastyFood" v-model="tastyFood">
+      <button type="submit">Add Food</button>
+    </form>
 
-  <h2>Data from MySQL:</h2>
-  <div id="data"></div>
+    <!-- 表單用於提交消息 -->
+    <form @submit.prevent="submitMessage" id="dataForm">
+      <label for="message">Enter Message:</label>
+      <input type="text" id="message" v-model="message">
+      <button type="submit">Submit</button>
+    </form>
 
-  <script src="scripts.js"></script>
+    <h2 @click="table_toggle_func">Data from MySQL: {{ table_toggle }}</h2>
+    <div id="data">
+      <div v-for="(item, index) in items" :key="index">
+        {{ index }} {{ item }}
+        <button @click="deleteItem(item.id)">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="vue.js"></script>
 </body>
 </html>
