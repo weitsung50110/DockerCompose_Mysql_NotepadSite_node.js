@@ -1,2 +1,15 @@
 # 忽略特定檔案或路徑下的所有套接字檔案
 mysql-data/*.sock
+
+# 忽略暫存檔案
+.DS_Store
+Thumbs.db
+
+# 忽略編譯生成的檔案
+/dist
+/build
+*.log
+
+# 忽略臨時檔案
+.temp/
+.tmp/
