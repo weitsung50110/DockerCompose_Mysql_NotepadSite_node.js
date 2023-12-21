@@ -96,6 +96,36 @@ DB_HOST、DB_PORT、DB_USER、DB_PASSWORD 和 DB_NAME是根據你在 docker-comp
         volumes:
           - ./mysql-data:/var/lib/mysql    
 
+### - req.query
+app.get() 路由處理程序通常不會透過 req.body 取得數據，而是使用 req.query 來取得查詢參數（如 /messages?table_toggle=messages 中的 table_toggle 參數
+
+        app.get('/messages', (req, res) => {
+          let tableName = ''; // 這裡將根據 toggle 設置表格名稱
+          if (req.query.table_toggle === 'messages') {
+            tableName = 'messages'; // 假設您的表格名稱是 food
+          } else {
+            tableName = 'food'; // 按需設置其他表格名稱
+          }
+
+使用GET的時候，切記不要用到req.body，<br />
+req.body是給POST用的。
+
+### - 當GET要傳遞參數時
+若沒有要傳遞參數的話，只要/messages就好，但當GET要傳遞參數時，要加上?table_toggle 代表要傳遞的參數
+
+        fetch(`/messages?table_toggle=${this.table_toggle}`, requestOptions)
+          .then(response => response.json())
+          .then(data => {
+            this.items = data; // 更新數據
+          })
+          .catch(error => {
+            console.error('Error:', error); // 若發生錯誤則輸出錯誤信息到控制台
+          });
+          
+在 URL 中包含需要傳遞的參數，table_toggle 參數將透過 URL 的查詢字串傳遞，<br />
+切記，GET要傳遞的參數無法寫在body裡面>>body: JSON.stringify(foodData)，<br />
+body: JSON.stringify(foodData)只有POST能夠使用。
+
 ## docker-compose.yml
 #### my-node-app 服務：
 1. container_name: 指定此容器的名稱為 my-node-app。
