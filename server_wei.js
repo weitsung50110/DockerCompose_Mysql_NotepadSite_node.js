@@ -59,9 +59,13 @@ app.get('/messages', (req, res) => {
 });
 
 // 處理 DELETE 請求，從 MySQL 數據庫刪除訊息
-app.delete('/messages/:id', (req, res) => {
+app.delete('/:table_toggle_parm/:id', (req, res) => {
   const messageId = req.params.id; // 從 URL 中獲取訊息 ID
-  const deleteQuery = 'DELETE FROM messages WHERE id = ?'; // 刪除訊息的 SQL 語句
+  const table_toggle_parm2 = req.params.table_toggle_parm; // 從 URL 中獲取訊息 ID
+  console.log("table_toggle_parm2: ",table_toggle_parm2)
+  console.log("messageId: ",messageId)
+
+  const deleteQuery = `DELETE FROM ${table_toggle_parm2} WHERE id = ?`; // 刪除訊息的 SQL 語句
   connection.query(deleteQuery, [messageId], (error, results) => {
     if (error) {
       console.error('Error deleting data from database:', error);

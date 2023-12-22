@@ -9,10 +9,10 @@
 </head>
 <body>
   <div id="app">
-    <h1>Insert and Display MySQL Data</h1>
+    <h2 id="title" @click="title_toggle_func">Insert and Display MySQL Data : {{title_toggle}}</h2>
 
     <!-- 表單用於輸入好吃的食物 -->
-    <form @submit.prevent="submitFood" id="foodForm">
+    <form @submit.prevent="submitFood" id="foodForm" v-if="title_toggle === 'food'">
       <label for="foodName">Name:</label>
       <input type="text" id="foodName" v-model="foodName">
       <label for="tastyFood">Tasty Food:</label>
@@ -21,7 +21,7 @@
     </form>
 
     <!-- 表單用於提交消息 -->
-    <form @submit.prevent="submitMessage" id="dataForm">
+    <form @submit.prevent="submitMessage" id="dataForm" v-if="title_toggle === 'messages'">
       <label for="message">Enter Message:</label>
       <input type="text" id="message" v-model="message">
       <button type="submit">Submit</button>
@@ -29,9 +29,10 @@
 
     <h2 @click="table_toggle_func">Data from MySQL: {{ table_toggle }}</h2>
     <div id="data">
-      <div v-for="(item, index) in items" :key="index">
-        {{ index }} {{ item }}
-        <button @click="deleteItem(item.id)" class="delete-button">Delete</button>
+      <!--（index）是由 Vue 自動生成的，會將 index 當作迭代的索引值，從 0 開始逐步遞增。-->
+      <div v-for="(item, index) in items" :key="item.id"> 
+        {{ index }} {{ item}}
+        <button @click="deleteItem(item.id, table_toggle)" class="delete-button">Delete</button>
       </div>
     </div>
   </div>
