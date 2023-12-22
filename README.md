@@ -48,7 +48,7 @@ DB_HOST、DB_PORT、DB_USER、DB_PASSWORD 和 DB_NAME是根據你在 docker-comp
     docker-compose up
 
 執行完docker-compose up，你可以發現你定義的container已經啟動了。
-![](https://raw.githubusercontent.com/weitsung50110/DockerCompose_mysql_express/main/github_imgs/48.png)
+![](https://raw.githubusercontent.com/weitsung50110/DockerCompose_mysql_express/main/github_imgs/49.png)
 
 
 若不想使用docker-compose來啟動的話，也可以個別來跑，但要注意有要通訊的containers必須要連接近同一個network當中。
