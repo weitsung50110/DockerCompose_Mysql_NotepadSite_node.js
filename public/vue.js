@@ -7,13 +7,15 @@ const app = Vue.createApp({
         foodName: '',
         tastyFood: '',
         table_toggle: 'food',
-        title_toggle: 'food'
+        title_toggle: 'food',
+        come_close: true
       };
     },
     mounted() {
         //mounted 鉤子只會在 Vue 實例首次被掛載到 DOM 元素後執行一次。
         //一旦 Vue 實例被掛載到 DOM，mounted 鉤子就會被觸發，之後不會再重複執行
         this.getData(); // 在 Vue 實例掛載時獲取數據 
+        this.first_come(); // 檢查是否為第一次來
     },
     methods: {
       // 提交消息
@@ -113,6 +115,47 @@ const app = Vue.createApp({
           this.title_toggle = 'messages';
         } else {
           this.title_toggle = 'food';
+        }
+      },
+      first_come_close(){
+        this.come_close = false;
+      },
+      first_come(){
+        // 檢查本地存儲中是否有訪問標記
+        if (!localStorage.getItem('visited')) {
+          // 如果是第一次訪問，顯示模態框
+          // 創建一個新的圖片元素
+          const newImage = document.createElement('img');
+          const CloseButton = document.createElement('button');
+          const NextButton = document.createElement('button');
+          const PreviousButton = document.createElement('button');
+          CloseButton.textContent="Close"
+          NextButton.textContent="Next"
+          PreviousButton.textContent="Previous"
+
+          // 設定圖片的路徑和描述文字
+          newImage.src = 'img/50.png';
+          newImage.alt = 'instruction img';
+
+          // 找到要放置圖片的容器元素
+          const imageContainer = document.getElementById('imageContainer');
+
+          // 把圖片添加到容器中
+          imageContainer.appendChild(newImage);
+          imageContainer.appendChild(PreviousButton);
+          imageContainer.appendChild(NextButton);
+          imageContainer.appendChild(CloseButton);
+
+          localStorage.setItem('visited', 'true');
+          // 監聽按鈕點擊事件，調用 first_come_close 方法
+          CloseButton.addEventListener('click', this.first_come_close); 
+          NextButton.addEventListener('click', ()=>{
+            newImage.src = 'img/51.png';
+          }); 
+          PreviousButton.addEventListener('click', ()=>{
+            newImage.src = 'img/50.png';
+          }); 
+          
         }
       },
     }

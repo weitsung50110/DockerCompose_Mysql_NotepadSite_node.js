@@ -35,7 +35,15 @@
         <button @click="deleteItem(item.id, table_toggle)" class="delete-button">Delete</button>
       </div>
     </div>
+
+    <!-- 空的容器用來放置動態添加的圖片 -->
+    <div id="imageContainer" v-show="come_close">
+    </div>
+
   </div>
+
+  
+
 
   <script src="vue.js"></script>
 </body>
