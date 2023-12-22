@@ -1,4 +1,9 @@
 # Implementing Containerization with Docker Compose and MySQL on Express within Node.js for a Notepad Functionality Website
+## 目錄Table of Contents
+- [藉由docker-compose使用mysql和node.js的方法](#藉由docker-compose使用mysql和node.js的方法)
+- [常見問題解決方法 Common Problem-Solving Methods](#常見問題解決方法Common_Problem-Solving_Methods)
+- [MySQL](#MySQL)
+
 ## 藉由docker-compose使用mysql和node.js的方法
 我的mysql目錄掛載在本地的位置為./mysql-data，因此若有sql相關檔案想要置放，請放在mysql-data資料夾下面。<br />
 如果mysql沒有掛載，只要重啟container後，新增的東西就會不見。
@@ -61,7 +66,7 @@ DB_HOST、DB_PORT、DB_USER、DB_PASSWORD 和 DB_NAME是根據你在 docker-comp
 雖然可以個別運行容器，但使用 Docker Compose 通常是管理多個相互關聯的容器更簡便和方便的方式。<br />
 這對於開發、測試和部署複雜的應用程式尤其有益。
 
-## 常見問題解決方法 Common Problem-Solving Methods.
+## 常見問題解決方法Common_Problem-Solving_Methods
 ### - 在node.js當中，使用mysql2
 
         my-node-app      | 
@@ -174,3 +179,43 @@ CMD 指令定義了容器啟動時要運行的預設命令。在這裡，它設�
 
 .dockerignore 文件會指示 Docker 在構建映像時忽略列出的文件或目錄。<br />
 這對於減少構建上下文的大小、加快構建速度以及避免將不必要的文件包含到映像中都非常有用。
+
+## MySQL
+#### 進入mysql容器並登入
+
+        docker exec -it mysql-container mysql -u root -p
+
+Enter password: 輸入root
+
+#### 創建DB
+
+        create database qq;
+
+#### 使用DB
+
+        use qq;
+
+#### 創建Table
+
+        CREATE TABLE messages (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            text TEXT
+        );
+
+        CREATE TABLE food (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            name VARCHAR(50),
+            tasty_food VARCHAR(100)
+        );
+
+#### 插入內容
+
+        INSERT INTO messages (text) VALUES ('This is a message');
+
+        INSERT INTO food (name, tasty_food) VALUES ('Emily', 'Apple cake');
+
+#### Select裡面的資料
+
+        SELECT * FROM messages;
+        
+        SELECT * FROM food;
