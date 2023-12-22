@@ -219,3 +219,12 @@ Enter password: 輸入root
         SELECT * FROM messages;
         
         SELECT * FROM food;
+
+#### 查看資料結構
+
+        Describe messages;        
+
+        Describe food;
+
+
+        
