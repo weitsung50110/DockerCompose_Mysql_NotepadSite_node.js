@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Insert and Display MySQL Data</title>
+  <link rel="stylesheet" href="styles.css">
+  <!-- 引入 Vue.js 3 的 CDN -->
+  <script src="https://unpkg.com/vue@3.3.0/dist/vue.global.js"></script>
+</head>
+<body>
+  <div id="app">
+    <h2 id="title" @click="title_toggle_func">Insert and Display MySQL Data : {{title_toggle}}</h2>
+
+    <!-- 表單用於輸入好吃的食物 -->
+    <form @submit.prevent="submitFood" id="foodForm" v-if="title_toggle === 'food'">
+      <label for="foodName">Name:</label>
+      <input type="text" id="foodName" v-model="foodName">
+      <label for="tastyFood">Tasty Food:</label>
+      <input type="text" id="tastyFood" v-model="tastyFood">
+      <button type="submit">Add Food</button>
+    </form>
+
+    <!-- 表單用於提交消息 -->
+    <form @submit.prevent="submitMessage" id="dataForm" v-if="title_toggle === 'messages'">
+      <label for="message">Enter Message:</label>
+      <input type="text" id="message" v-model="message">
+      <button type="submit">Submit</button>
+    </form>
+
+    <h2 @click="table_toggle_func">Data from MySQL: {{ table_toggle }}</h2>
+    <div id="data">
+      <!--（index）是由 Vue 自動生成的，會將 index 當作迭代的索引值，從 0 開始逐步遞增。-->
+      <div v-for="(item, index) in items" :key="item.id"> 
+        {{ index }} {{ item}}
+        <button @click="deleteItem(item.id, table_toggle)" class="delete-button">Delete</button>
+      </div>
+    </div>
+
+    <!-- 空的容器用來放置動態添加的圖片 -->
+    <div id="imageContainer" v-show="come_close">
+    </div>
+
+  </div>
+
+  
+
+
+  <script src="vue.js"></script>
+</body>
+</html>

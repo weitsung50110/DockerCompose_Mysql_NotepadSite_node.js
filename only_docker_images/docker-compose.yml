@@ -1,0 +1,26 @@
+version: '3'
+services:
+  web:
+    image: node:latest
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./app:/usr/src/app
+    working_dir: /usr/src/app
+    depends_on:
+      - db
+    command: bash -c "npm install express mysql2 && npm start"
+    environment:
+      - DB_HOST=db
+      - DB_USER=root # 您的MySQL使用者名稱
+      - DB_PASSWORD=root # 您的MySQL密碼
+      - DB_NAME=qq # 您的資料庫名稱
+  db:
+    image: mysql:latest
+    environment:
+      - MYSQL_ROOT_PASSWORD=root # 設置MySQL root密碼
+      - MYSQL_DATABASE=qq # 資料庫名稱
+    volumes:
+      - ./mysql-data:/var/lib/mysql
+    ports:
+      - "3306:3306"
