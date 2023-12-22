@@ -4,6 +4,7 @@
 - [常見問題解決方法 Common Problem-Solving Methods](#常見問題解決方法Common_Problem-Solving_Methods)
 - [MySQL](#MySQL)
 - [Demonstration](#Demonstration)
+- [OnlyDockerImages資料夾講解](#OnlyDockerImages資料夾講解)
 
 ## 藉由docker-compose使用mysql和node.js的方法
 我的mysql目錄掛載在本地的位置為./mysql-data，因此若有sql相關檔案想要置放，請放在mysql-data資料夾下面。<br />
@@ -258,3 +259,21 @@ Using the local storage feature, upon the visitor's first entry to the website, 
           // 如果 'visited' 的值為 'true'，則示範圖表不會再次顯示
         }
 ![](https://raw.githubusercontent.com/weitsung50110/DockerCompose_mysql_express/main/github_imgs/53.png)
+
+## OnlyDockerImages資料夾講解
+如果想要直接使用 Node.js 的image，而不是使用自訂的 Dockerfile，可以在 docker-compose.yml 中指定 Node.js 映像名稱，<br />
+並掛載您的程式碼到容器內。這樣可以簡化配置並使用官方提供的 Node.js 映像。<br /> 程式放在/only_docker_images當中。
+
+        web:
+            image: node:latest
+            ports:
+              - "3000:3000"
+            volumes:
+              - ./app:/usr/src/app
+
+你的web的node.js是掛載在/app裡面，所以你必須要在/app裡面放上package.json，程式才能夠啟動，<br/>
+因為都用Docker hub的images跑的緣故，所以你需要再程式碼加上>>
+
+        command: bash -c "npm install express mysql2 && npm start"
+
+就可以只透過Node和MySql的images來成功啟動了。
