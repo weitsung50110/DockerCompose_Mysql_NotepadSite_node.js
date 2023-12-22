@@ -3,6 +3,7 @@
 - [藉由docker-compose使用mysql和node.js的方法](#藉由docker-compose使用mysql和node.js的方法)
 - [常見問題解決方法 Common Problem-Solving Methods](#常見問題解決方法Common_Problem-Solving_Methods)
 - [MySQL](#MySQL)
+- [Demonstration](#Demonstration)
 
 ## 藉由docker-compose使用mysql和node.js的方法
 我的mysql目錄掛載在本地的位置為./mysql-data，因此若有sql相關檔案想要置放，請放在mysql-data資料夾下面。<br />
@@ -233,5 +234,27 @@ Enter password: 輸入root
 
         Describe food;
 
+## Demonstration
+#### Demostration Diagram
+When you click on the h2 title, the website will switch to display either the 'food' or 'messages' input fields and tables.
 
-        
+![](https://raw.githubusercontent.com/weitsung50110/DockerCompose_mysql_express/main/github_imgs/50.png)
+![](https://raw.githubusercontent.com/weitsung50110/DockerCompose_mysql_express/main/github_imgs/51.png)
+
+When entering the website for the first time, a 'Demonstration Diagram' will be displayed.
+![](https://raw.githubusercontent.com/weitsung50110/DockerCompose_mysql_express/main/github_imgs/52.png)
+
+#### local storage
+使用本地存儲 (local storage) 功能，在訪客首次進入網站後設置一個 'visited' 的值為 'true'。之後，當檢測到 'visited' 為 'true' 時，展示的示範圖表將不再顯示。
+
+Using the local storage feature, upon the visitor's first entry to the website, set a value of 'true' for 'visited'. Afterwards, when it detects that 'visited' is 'true', the displayed demonstration diagram will no longer appear.
+
+        // 檢查本地存儲是否有 'visited' 的值
+        if (!localStorage.getItem('visited')) {
+          console.log('Displaying Demonstration Diagram');       
+          // 設置 'visited' 的值為 'true'
+          localStorage.setItem('visited', 'true');
+        } else {
+          // 如果 'visited' 的值為 'true'，則示範圖表不會再次顯示
+        }
+![](https://raw.githubusercontent.com/weitsung50110/DockerCompose_mysql_express/main/github_imgs/53.png)
