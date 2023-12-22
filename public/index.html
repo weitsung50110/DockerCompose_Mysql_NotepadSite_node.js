@@ -31,7 +31,7 @@
     <div id="data">
       <div v-for="(item, index) in items" :key="index">
         {{ index }} {{ item }}
-        <button @click="deleteItem(item.id)">Delete</button>
+        <button @click="deleteItem(item.id)" class="delete-button">Delete</button>
       </div>
     </div>
   </div>

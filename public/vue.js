@@ -10,7 +10,9 @@ const app = Vue.createApp({
       };
     },
     mounted() {
-      this.getData(); // 在 Vue 實例掛載時獲取數據
+        //mounted 鉤子只會在 Vue 實例首次被掛載到 DOM 元素後執行一次。
+        //一旦 Vue 實例被掛載到 DOM，mounted 鉤子就會被觸發，之後不會再重複執行
+        this.getData(); // 在 Vue 實例掛載時獲取數據 
     },
     methods: {
       // 提交消息
@@ -105,7 +107,6 @@ const app = Vue.createApp({
       },
     }
   });
-  
   // 將 Vue 應用程序掛載到具有 id="app" 的 HTML 元素上
   app.mount('#app');
   

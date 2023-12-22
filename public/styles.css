@@ -25,6 +25,10 @@ h1 {
 h2 {
   margin-top: 40px;
 }
+h1:hover,
+h2:hover {
+  background-color: rgb(255, 229, 200);
+}
 
 /* Form styles */
 form {

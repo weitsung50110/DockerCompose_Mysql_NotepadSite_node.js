@@ -106,6 +106,7 @@ app.get() 路由處理程序通常不會透過 req.body 取得數據，而是使
           } else {
             tableName = 'food'; // 按需設置其他表格名稱
           }
+![](https://raw.githubusercontent.com/weitsung50110/DockerCompose_mysql_express/main/github_imgs/48.png)
 
 使用GET的時候，切記不要用到req.body，<br />
 req.body是給POST用的。
