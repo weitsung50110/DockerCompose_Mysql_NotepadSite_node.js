@@ -6,7 +6,8 @@ const app = Vue.createApp({
         items: [], // 數據項目將用於顯示從 API 獲取的數據
         foodName: '',
         tastyFood: '',
-        table_toggle: 'food'
+        table_toggle: 'food',
+        title_toggle: 'food'
       };
     },
     mounted() {
@@ -81,8 +82,9 @@ const app = Vue.createApp({
           });
       },
       // 刪除數據的方法
-      deleteItem(id) {
-        fetch(`/messages/${id}`, {
+      deleteItem(id, table_toggle_parm) {
+        console.log("table_toggle_parm : ",table_toggle_parm)
+        fetch(`/${table_toggle_parm}/${id}`, {
           method: 'DELETE'
         })
         .then(response => {
@@ -96,7 +98,7 @@ const app = Vue.createApp({
           console.error('Error:', error); // 若發生錯誤則輸出錯誤信息到控制台
         });
       },
-      // 刪除數據的方法
+      // Get不同表格的方法 food messages table
       table_toggle_func() {
         if (this.table_toggle === 'food') {
           this.table_toggle = 'messages';
@@ -104,6 +106,14 @@ const app = Vue.createApp({
           this.table_toggle = 'food';
         }
         this.getData(); // 更新数据
+      },
+      // Get不同表格的方法 food messages table
+      title_toggle_func() {
+        if (this.title_toggle === 'food') {
+          this.title_toggle = 'messages';
+        } else {
+          this.title_toggle = 'food';
+        }
       },
     }
   });

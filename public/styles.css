@@ -17,14 +17,16 @@ body {
 }
 
 /* Heading styles */
-h1 {
-  text-align: center;
-  margin-bottom: 20px;
-}
 
 h2 {
-  margin-top: 40px;
+  margin-top: 5px;
 }
+
+h2#title {
+  text-align: center;
+  margin-bottom: 5px;
+}
+
 h1:hover,
 h2:hover {
   background-color: rgb(255, 229, 200);
@@ -33,22 +35,29 @@ h2:hover {
 /* Form styles */
 form {
   display: flex;
-  justify-content: space-between; /* 讓兩個表單元素在同一行上左右排列 */
-  align-items: center;
-  flex-wrap: wrap; /* 如果空間不夠，讓元素換行 */
-  margin-bottom: 5px;
-  max-width: 800px; /* 控制最大寬度以免表單過寬 */
+  flex-direction: column; /* 垂直堆疊表單元素 */
+  align-items: center; /* 元素置中 */
+  margin-bottom: 3%;
 }
 
 label {
-  margin-bottom: 5px;
+  margin-bottom: 3px;
+  font-weight: bold; /* 加粗標籤文字 */
 }
 
 input[type="text"] {
-  padding: 8px;
+  padding: 10px;
   font-size: 16px;
-  width: 30%;
-  margin-bottom: 5px;
+  width: 80%; /* 使用整個容器的寬度 */
+  margin-bottom: 15px;
+  border: 1px solid #ee9898; /* 添加輸入框的邊框 */
+  border-radius: 6px; /* 圓角 */
+  transition: border-color 0.3s ease; /* 平滑過渡邊框顏色 */
+}
+
+input[type="text"]:focus {
+  outline: none; /* 移除預設的焦點外框 */
+  border-color: #007bff; /* 聚焦時的邊框顏色 */
 }
 
 button[type="submit"] {
@@ -67,9 +76,9 @@ button[type="submit"]:hover {
 
 /* Data display styles */
 #data {
-  margin-top: 20px;
+  margin-top: 1px;
   border-top: 1px solid #ccc;
-  padding-top: 10px;
+  padding-top: 1px;
 }
 
 #data div {
