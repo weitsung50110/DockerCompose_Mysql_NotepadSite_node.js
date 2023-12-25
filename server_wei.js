@@ -38,6 +38,22 @@ app.post('/messages', (req, res) => {
   });
 });
 
+// 處理 POST 請求，將訊息插入 MySQL 數據庫
+app.post('/food', (req, res) => {
+  const foodName = req.body.foodName_j; // 從請求中獲取訊息
+  const tastyFood = req.body.tastyFood_j; // 從請求中獲取訊息
+
+  const insertQuery = 'INSERT INTO food (name,tasty_food) VALUES (?,?)'; // 插入訊息的 SQL 語句
+  connection.query(insertQuery, [foodName,tastyFood], (error, results) => {
+    if (error) {
+      console.error('Error inserting data into database:', error);
+      res.status(500).json({ error: 'Error inserting data into database' }); // 回傳錯誤訊息
+      return;
+    }
+    res.status(200).json({ success: true }); // 插入成功，回傳成功訊息
+  });
+});
+
 // 處理 GET 請求，從 MySQL 數據庫檢索訊息
 app.get('/messages', (req, res) => {
   let tableName = ''; // 這裡將根據 toggle 設置表格名稱
@@ -59,9 +75,9 @@ app.get('/messages', (req, res) => {
 });
 
 // 處理 DELETE 請求，從 MySQL 數據庫刪除訊息
-app.delete('/:table_toggle_parm/:id', (req, res) => {
+app.delete('/:messages/:id', (req, res) => {
   const messageId = req.params.id; // 從 URL 中獲取訊息 ID
-  const table_toggle_parm2 = req.params.table_toggle_parm; // 從 URL 中獲取訊息 ID
+  const table_toggle_parm2 = req.params.messages; // 從 URL 中獲取訊息 ID
   console.log("table_toggle_parm2: ",table_toggle_parm2)
   console.log("messageId: ",messageId)
 
@@ -77,22 +93,6 @@ app.delete('/:table_toggle_parm/:id', (req, res) => {
       return;
     }
     res.status(200).json({ success: true }); // 成功刪除，回傳成功訊息
-  });
-});
-
-// 處理 POST 請求，將訊息插入 MySQL 數據庫
-app.post('/food', (req, res) => {
-  const foodName = req.body.foodName_j; // 從請求中獲取訊息
-  const tastyFood = req.body.tastyFood_j; // 從請求中獲取訊息
-
-  const insertQuery = 'INSERT INTO food (name,tasty_food) VALUES (?,?)'; // 插入訊息的 SQL 語句
-  connection.query(insertQuery, [foodName,tastyFood], (error, results) => {
-    if (error) {
-      console.error('Error inserting data into database:', error);
-      res.status(500).json({ error: 'Error inserting data into database' }); // 回傳錯誤訊息
-      return;
-    }
-    res.status(200).json({ success: true }); // 插入成功，回傳成功訊息
   });
 });
 
