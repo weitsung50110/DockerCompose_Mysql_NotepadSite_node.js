@@ -1,10 +1,13 @@
 # Implementing Containerization with Docker Compose and MySQL on Express within Node.js for a Notepad Functionality Website
 ## 目錄Table of Contents
-- [藉由docker-compose使用mysql和node.js的方法](#藉由docker-compose使用mysql和node.js的方法)
-- [常見問題解決方法 Common Problem-Solving Methods](#常見問題解決方法Common_Problem-Solving_Methods)
-- [MySQL](#MySQL)
-- [Demonstration](#Demonstration)
-- [OnlyDockerImages資料夾講解](#OnlyDockerImages資料夾講解)
+- [藉由docker-compose使用mysql和node.js的方法](#藉由docker-compose使用mysql和nodejs的方法)
+- [常見問題解決方法 Common Problem-Solving Methods](#常見問題解決方法-common-problem-solving-methods)
+- [docker-compose.yml](#docker-composeyml)
+- [Dockerfile](#dockerfile)
+- [.dockerignore](#dockerignore)
+- [MySQL](#mysql)
+- [實作講解 Practical demonstration](#實作講解-practical-demonstration)
+- [only_docker_images 資料夾講解](#only_docker_images-資料夾講解)
 
 ## 藉由docker-compose使用mysql和node.js的方法
 我的mysql目錄掛載在本地的位置為./mysql-data，因此若有sql相關檔案想要置放，請放在mysql-data資料夾下面。<br />
@@ -75,7 +78,7 @@ DB_HOST、DB_PORT、DB_USER、DB_PASSWORD 和 DB_NAME是根據你在 docker-comp
 雖然可以個別運行容器，但使用 Docker Compose 通常是管理多個相互關聯的容器更簡便和方便的方式。<br />
 這對於開發、測試和部署複雜的應用程式尤其有益。
 
-## 常見問題解決方法Common_Problem-Solving_Methods
+## 常見問題解決方法 Common Problem-Solving Methods
 ### - 在node.js當中，使用mysql2
 
         my-node-app      | 
@@ -235,7 +238,7 @@ Enter password: 輸入root
 
         Describe food;
 
-## Demonstration
+## 實作講解 Practical demonstration
 #### Demostration Diagram
 When you click on the h2 title, the website will switch to display either the 'food' or 'messages' input fields and tables.
 
@@ -260,7 +263,7 @@ Using the local storage feature, upon the visitor's first entry to the website, 
         }
 ![](https://raw.githubusercontent.com/weitsung50110/DockerCompose_mysql_express/main/github_imgs/53.png)
 
-## OnlyDockerImages資料夾講解
+## only_docker_images 資料夾講解
 如果想要直接使用 Node.js 的image，而不是使用自訂的 Dockerfile，可以在 docker-compose.yml 中指定 Node.js 映像名稱，<br />
 並掛載您的程式碼到容器內。這樣可以簡化配置並使用官方提供的 Node.js 映像。<br /> 程式放在/only_docker_images當中。
 
